@@ -1,0 +1,1 @@
+"""The forked-daapd component."""
