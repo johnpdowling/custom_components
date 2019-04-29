@@ -2,7 +2,7 @@
   "domain": "forked-daapd",
   "name": "Forked-daapd",
   "documentation": "https://www.home-assistant.io/components/forked-daapd",
-  "requirements": [],
+  "requirements": ['mpg123==0.4'],
   "dependencies": [],
   "codeowners": []
 }
