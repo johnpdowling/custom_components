@@ -1,0 +1,8 @@
+{
+  "domain": "forked-daapd",
+  "name": "Forked-daapd",
+  "documentation": "https://www.home-assistant.io/components/forked-daapd",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": []
+}
