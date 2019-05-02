@@ -2,7 +2,7 @@
   "domain": "usps",
   "name": "Usps",
   "documentation": "https://www.home-assistant.io/components/usps",
-  "requirements": [],
+  "requirements": [ "https://github.com/johnpdowling/python-myusps/zipball/master#myusps==1.3.3" ],
   "dependencies": [],
   "codeowners": []
 }
