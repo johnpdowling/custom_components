@@ -12,7 +12,7 @@ from homeassistant.util.dt import now
 
 _LOGGER = logging.getLogger(__name__)
 
-REQUIREMENTS = [ 'https://github.com/johnpdowling/python-myusps/zipball/master#myusps==1.3.3' ]
+#REQUIREMENTS = [ 'https://github.com/johnpdowling/python-myusps/zipball/master#myusps==1.3.3' ]
 
 DOMAIN = 'usps'
 DATA_USPS = 'data_usps'
