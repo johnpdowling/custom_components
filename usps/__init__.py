@@ -12,6 +12,8 @@ from homeassistant.util.dt import now
 
 _LOGGER = logging.getLogger(__name__)
 
+REQUIREMENTS = [ "https://github.com/johnpdowling/python-myusps/archive/master.zip==1.3.3" ]
+
 DOMAIN = 'usps'
 DATA_USPS = 'data_usps'
 MIN_TIME_BETWEEN_UPDATES = timedelta(minutes=30)
