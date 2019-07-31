@@ -18,7 +18,6 @@ media_player:
     port: 3689
 ```
 
-{% configuration %}
 host:
   description: The IP of the forked-daapd API, e.g., 192.168.1.50.
   required: true
@@ -28,4 +27,3 @@ port:
   required: false
   default: 3689
   type: integer
-{% endconfiguration %}
