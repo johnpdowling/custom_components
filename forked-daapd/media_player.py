@@ -31,11 +31,13 @@ DEFAULT_SSL = False
 DEFAULT_TIMEOUT = 10
 DOMAIN = 'forked-daapd'
 
-SUPPORT_FORKEDDAAPD = SUPPORT_PAUSE | SUPPORT_VOLUME_SET | SUPPORT_VOLUME_MUTE | \
-    SUPPORT_PREVIOUS_TRACK | SUPPORT_NEXT_TRACK | SUPPORT_SEEK | \
-    SUPPORT_PLAY_MEDIA | SUPPORT_PLAY | SUPPORT_TURN_OFF
+#SUPPORT_FORKEDDAAPD = SUPPORT_PAUSE | SUPPORT_VOLUME_SET | SUPPORT_VOLUME_MUTE | \
+#    SUPPORT_PREVIOUS_TRACK | SUPPORT_NEXT_TRACK | SUPPORT_SEEK | \
+#    SUPPORT_PLAY_MEDIA | SUPPORT_PLAY | SUPPORT_TURN_OFF
+SUPPORT_FORKEDDAAPD = SUPPORT_VOLUME_SET | SUPPORT_VOLUME_MUTE | \
+                      SUPPORT_PLAY_MEDIA | SUPPORT_TURN_OFF | SUPPORT_TURN_ON
 
-SUPPORT_AIRPLAY = SUPPORT_VOLUME_SET | SUPPORT_TURN_ON | SUPPORT_TURN_OFF
+SUPPORT_AIRPLAY = SUPPORT_VOLUME_SET | SUPPORT_VOLUME_MUTE | SUPPORT_TURN_ON | SUPPORT_TURN_OFF
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_HOST): cv.string,
@@ -174,8 +176,8 @@ class ForkedDaapd:
 
     def set_volume_airplay_device(self, device_id, level):
         """Set volume, returns current state of device, id,level 0-100."""
-        path = '/api/outputs/' + str(device_id)
-        return self._request('PUT', path, {'volume': level})
+        path = '/api/player/volume'
+        return self._request('PUT', path, {'volume': level, 'output_id': device_id})
 
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
@@ -420,8 +422,8 @@ class AirPlayDevice(MediaPlayerDevice):
             self.selected = state_hash.get('selected', None)
             self.active = state_hash.get('selected', None)
 
-        if 'sound_volume' in state_hash:
-            self.volume = state_hash.get('sound_volume', 0)
+        if 'volume' in state_hash:
+            self.volume = state_hash.get('volume', 0)
 
         self.supports_audio = True
         self.supports_video = False
