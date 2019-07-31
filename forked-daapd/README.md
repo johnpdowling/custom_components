@@ -1,4 +1,4 @@
-# forked-daapd hass.io custom component for the [forked-daapd API](https://github.com/ejurgensen/forked-daapd/blob/master/README_JSON_API.md)
+# [forked-daapd API](https://github.com/ejurgensen/forked-daapd/blob/master/README_JSON_API.md) hass.io custom component 
 This provides a media player component for sending announcements to a [forked-daapd](https://github.com/ejurgensen/forked-daapd) server.
 In addition to controlling forked-daapd, your available AirPlay endpoints will be added as media players as well. You can then individually address them and turn them on, turn them off or adjust their volume.
 
