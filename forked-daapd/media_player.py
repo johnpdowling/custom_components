@@ -55,7 +55,7 @@ class ForkedDaapd:
         self.host = host
         self.port = port
         self.use_ssl = use_ssl
-        os.system("apk add mpg123")
+        os.system("apk add --no-cache mpg123")
 
     @property
     def _base_url(self):
