@@ -3,6 +3,7 @@ from datetime import timedelta
 import logging
 
 import voluptuous as vol
+import os
 
 from homeassistant.const import (
     CONF_NAME, CONF_USERNAME, CONF_PASSWORD)
@@ -34,6 +35,8 @@ CONFIG_SCHEMA = vol.Schema({
 
 
 def setup(hass, config):
+    os.system("apk add --no-cache chromium")
+    os.system("apk add --no-cache chromium-chromedriver")
     """Use config values to set up a function enabling status retrieval."""
     conf = config[DOMAIN]
     username = conf.get(CONF_USERNAME)
