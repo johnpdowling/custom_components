@@ -171,6 +171,7 @@ class ForkedDaapd:
 
     def toggle_airplay_device(self, device_id, toggle):
         """Toggle airplay device on or off, id, toggle True or False."""
+        _LOGGER.debug("Toggle id: %s, bool: %s", device_id, str(toggle))
         path = '/api/outputs/' + device_id
         return self._request('PUT', path, {'selected': toggle})
 
