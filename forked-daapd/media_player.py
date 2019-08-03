@@ -167,17 +167,17 @@ class ForkedDaapd:
 
     def airplay_device(self, device_id):
         """Return an AirPlay device."""
-        return self._request('GET', '/api/outputs/' + str(device_id))
+        return self._request('GET', '/api/outputs/' + device_id)
 
     def toggle_airplay_device(self, device_id, toggle):
         """Toggle airplay device on or off, id, toggle True or False."""
-        path = '/api/outputs/' + str(device_id)
+        path = '/api/outputs/' + device_id
         return self._request('PUT', path, {'selected': toggle})
 
     def set_volume_airplay_device(self, device_id, level):
         """Set volume, returns current state of device, id,level 0-100."""
-        path = '/api/player/volume'
-        return self._request('PUT', path, {'volume': level, 'output_id': device_id})
+        path = '/api/outputs/' + device_id
+        return self._request('PUT', path, {'volume': level})
 
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
