@@ -55,7 +55,7 @@ def setup(hass, config):
         _LOGGER.exception('Could not connect to My USPS')
         return False
 
-    hass.data[DATA_USPS] = USPSData(name, username, password, cookie, cache, driver)
+    hass.data[DATA_USPS] = USPSData(name, session)
 
     for component in USPS_TYPE:
         discovery.load_platform(hass, component, DOMAIN, {}, config)
@@ -70,19 +70,10 @@ class USPSData:
     updates from the server.
     """
 
-    def __init__(self, name, username, password, cookie, cache, driver):
+    def __init__(self, name, session):
         """Initialize the data object."""
-        import myusps
         self.name = name
-        self.username = username
-        self.password = password
-        self.cookie_path = cookie
-        self.cache_path = cache
-        self.driver = driver
-        import myusps
-        self.session = myusps.get_session(self.username, self.password,
-                                     cookie_path=self.cookie_path, cache_path=self.cache_path,
-                                     driver=self.driver)        
+        self.session = session        
         
         self.packages = []
         self.mail = []
@@ -92,9 +83,6 @@ class USPSData:
     def update(self, **kwargs):
         """Fetch the latest info from USPS. update the session every time"""
         import myusps
-        self.session = myusps.get_session(self.username, self.password,
-                                     cookie_path=self.cookie_path, cache_path=self.cache_path,
-                                     driver=self.driver)
         self.packages = myusps.get_packages(self.session)
         self.mail = myusps.get_mail(self.session, now().date())
         self.attribution = myusps.ATTRIBUTION
