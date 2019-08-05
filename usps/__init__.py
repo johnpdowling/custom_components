@@ -74,9 +74,15 @@ class USPSData:
         """Initialize the data object."""
         import myusps
         self.name = name
+        self.username = username
+        self.password = password
         self.cookie_path = cookie
         self.cache_path = cache
         self.driver = driver
+        import myusps
+        self.session = myusps.get_session(self.username, self.password,
+                                     cookie_path=self.cookie_path, cache_path=self.cache_path,
+                                     driver=self.driver)        
         
         self.packages = []
         self.mail = []
@@ -84,13 +90,13 @@ class USPSData:
 
     @Throttle(MIN_TIME_BETWEEN_UPDATES)
     def update(self, **kwargs):
-        """Fetch the latest info from USPS."""
+        """Fetch the latest info from USPS. update the session every time"""
         import myusps
-        update_session = myusps.get_session(self.username, self.password,
+        self.session = myusps.get_session(self.username, self.password,
                                      cookie_path=self.cookie_path, cache_path=self.cache_path,
                                      driver=self.driver)
-        self.packages = myusps.get_packages(update_session)
-        self.mail = myusps.get_mail(update_session, now().date())
+        self.packages = myusps.get_packages(self.session)
+        self.mail = myusps.get_mail(self.session, now().date())
         self.attribution = myusps.ATTRIBUTION
         _LOGGER.debug("Mail, request date: %s, list: %s",
                       now().date(), self.mail)
