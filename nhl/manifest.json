@@ -1,0 +1,8 @@
+{
+  "domain": "nhl",
+  "name": "NHL",
+  "documentation": "https://github.com/johnpdowling/custom_components/blob/master/nhl/README.md",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": []
+}
