@@ -5,7 +5,7 @@ In addition to controlling forked-daapd, your available AirPlay endpoints will b
 ## Installation
 1) Set up a forked-daapd server in your system. Configure a library folder for %config%/forked-daapd/
 2) Install component to %config%/custom_components/forked-daapd/
-3) Create a named pipe %config%/forked-daapd/HomeAssistantAnnounce
+3) Use mkfifo to create a named pipe %config%/forked-daapd/HomeAssistantAnnounce
 
 ## Configuration
 To add forked-daapd to your HA installation, add the following to your `configuration.yaml` file:
