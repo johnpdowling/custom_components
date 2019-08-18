@@ -78,9 +78,9 @@ class ForkedDaapd:
             if method == 'GET':
                 response = requests.get(url, timeout=DEFAULT_TIMEOUT)
             elif method == 'POST':
-                response = requests.put(url, params, timeout=DEFAULT_TIMEOUT)
+                response = requests.put(url, json=dict(params), timeout=DEFAULT_TIMEOUT)
             elif method == 'PUT':
-                response = requests.put(url, params, timeout=DEFAULT_TIMEOUT)
+                response = requests.put(url, json=dict(params), timeout=DEFAULT_TIMEOUT)
             elif method == 'DELETE':
                 response = requests.delete(url, timeout=DEFAULT_TIMEOUT)
             try:
