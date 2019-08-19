@@ -108,7 +108,7 @@ class ForkedDaapd:
 
     def set_volume(self, level):
         """Set the volume and returns the current state, level 0-100."""
-        if 0 < volume < 1: 
+        if 0 < level < 1: 
             return self._request('PUT', '/api/player/volume', {'volume': int(level * 100)})
         else:
             return self._request('PUT', '/api/player/volume', {'volume': level})
