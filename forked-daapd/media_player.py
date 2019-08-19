@@ -78,9 +78,9 @@ class ForkedDaapd:
             if method == 'GET':
                 response = requests.get(url, timeout=DEFAULT_TIMEOUT)
             elif method == 'POST':
-                response = requests.put(url, params, timeout=DEFAULT_TIMEOUT)
+                response = requests.put(url, json=dict(params), timeout=DEFAULT_TIMEOUT)
             elif method == 'PUT':
-                response = requests.put(url, params, timeout=DEFAULT_TIMEOUT)
+                response = requests.put(url, json=dict(params), timeout=DEFAULT_TIMEOUT)
             elif method == 'DELETE':
                 response = requests.delete(url, timeout=DEFAULT_TIMEOUT)
             try:
@@ -108,8 +108,11 @@ class ForkedDaapd:
 
     def set_volume(self, level):
         """Set the volume and returns the current state, level 0-100."""
-        return self._request('PUT', '/api/player/volume', {'volume': level})
-
+        if 0 < level < 1: 
+            return self._request('PUT', '/api/player/volume', {'volume': int(level * 100)})
+        else:
+            return self._request('PUT', '/api/player/volume', {'volume': level})
+        
     def set_muted(self, muted):
         """Mute and returns the current state, muted True or False."""
         if muted is True:
