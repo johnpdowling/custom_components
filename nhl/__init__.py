@@ -1,1 +1,1 @@
-
+"""NHL team integration."""
