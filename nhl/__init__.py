@@ -1,1 +1,1 @@
-"""NHL team integration."""
+"""Unofficial NHL team integration."""
