@@ -77,8 +77,8 @@ class ForkedDaapd:
         try:
             if method == 'GET':
                 response = requests.get(url, timeout=DEFAULT_TIMEOUT)
-            elif method == 'POST':
-                response = requests.put(url, json=dict(params), timeout=DEFAULT_TIMEOUT)
+            elif method == 'PUT_EMPTY':
+                response = requests.put(url, timeout=DEFAULT_TIMEOUT)
             elif method == 'PUT':
                 response = requests.put(url, json=dict(params), timeout=DEFAULT_TIMEOUT)
             elif method == 'DELETE':
@@ -108,17 +108,14 @@ class ForkedDaapd:
 
     def set_volume(self, level):
         """Set the volume and returns the current state, level 0-100."""
-        if 0 < level < 1: 
-            return self._request('PUT', '/api/player/volume', {'volume': int(level * 100)})
-        else:
-            return self._request('PUT', '/api/player/volume', {'volume': level})
+        return self._request('PUT', '/api/player/volume?volume=' + str(int(level * 100)))
         
     def set_muted(self, muted):
         """Mute and returns the current state, muted True or False."""
         if muted is True:
             self.set_volume(0)
         else:
-            self.set_volume(50)
+            self.set_volume(0.5)
 
     def play(self):
         """Set playback to play and returns the current state."""
@@ -181,7 +178,7 @@ class ForkedDaapd:
     def set_volume_airplay_device(self, device_id, level):
         """Set volume, returns current state of device, id,level 0-100."""
         path = '/api/outputs/' + device_id
-        return self._request('PUT', path, {'volume': level})
+        return self._request('PUT', path, {'volume': int(level *100)})
 
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
@@ -229,7 +226,7 @@ class ForkedDaapdDevice(MediaPlayerDevice):
         """Update all the state properties with the passed in dictionary."""
         self.player_state = state_hash.get('state', None)
 
-        self.current_volume = state_hash.get('volume', 0)
+        self.current_volume = float(state_hash.get('volume', 0) /100)
         self.muted = (self.current_volume == 0)
         self.current_playlist = None
         current_item_id = state_hash.get('item_id',0)
@@ -353,7 +350,7 @@ class ForkedDaapdDevice(MediaPlayerDevice):
 
     def set_volume_level(self, volume):
         """Set volume level, range 0..1."""
-        response = self.client.set_volume(int(volume))
+        response = self.client.set_volume(volume)
         if not bool(response):
             self.current_volume = volume
         else:
@@ -428,7 +425,7 @@ class AirPlayDevice(MediaPlayerDevice):
             self.active = state_hash.get('selected', None)
 
         if 'volume' in state_hash:
-            self.volume = state_hash.get('volume', 0)
+            self.volume = float(state_hash.get('volume', 0) / 100)
 
         self.supports_audio = True
         self.supports_video = False
@@ -460,7 +457,7 @@ class AirPlayDevice(MediaPlayerDevice):
     @property
     def volume_level(self):
         """Return the volume."""
-        return float(self.volume)
+        return self.volume
 
     @property
     def media_content_type(self):
@@ -474,7 +471,7 @@ class AirPlayDevice(MediaPlayerDevice):
 
     def set_volume_level(self, volume):
         """Set volume level, range 0..1."""
-        volume = int(volume)
+        # volume = volume
         response = self.client.set_volume_airplay_device(self._id, volume)
         self.update_state(response)
 
@@ -491,3 +488,4 @@ class AirPlayDevice(MediaPlayerDevice):
         self.schedule_update_ha_state()
         response = self.client.toggle_airplay_device(self._id, False)
         self.update_state(response)
+
