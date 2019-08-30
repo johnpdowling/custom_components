@@ -4,8 +4,8 @@ In addition to controlling forked-daapd, your available AirPlay endpoints will b
 
 ## Installation
 1) Set up a forked-daapd server in your system. Either:
-   a) Add my [repo](https://github.com/johnpdowling/hassio-addons) to hass.io and install the forked-daapd add-on from there
-   b) Manually set up a forked-daapd server on your system. Configure a library folder for %config%/forked-daapd/ and use mkfifo to create a named pipe %config%/forked-daapd/music/HomeAssistantAnnounce with generous rw permissions
+   - Add my [repo](https://github.com/johnpdowling/hassio-addons) to hass.io and install the forked-daapd add-on from there
+   - Manually set up a forked-daapd server on your system. Configure a library folder for %config%/forked-daapd/ and use mkfifo to create a named pipe %config%/forked-daapd/music/HomeAssistantAnnounce with generous rw permissions
 2) Install component to %config%/custom_components/forked-daapd/
 
 ## Configuration
