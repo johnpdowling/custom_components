@@ -28,3 +28,6 @@ port:
   default: 3689
   type: integer
 ```
+
+## Thanks
+A big thanks to [/u/sretalla](https://github.com/sretalla) for settings bugfixes
