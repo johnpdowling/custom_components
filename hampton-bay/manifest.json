@@ -1,1 +1,8 @@
-
+{
+  "domain": "hampton-bay",
+  "name": "Hampton Bay",
+  "documentation": "https://github.com/johnpdowling/custom_components/blob/master/hampton-bay/README.md",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": []
+}
