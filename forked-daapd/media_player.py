@@ -80,7 +80,7 @@ class ForkedDaapd:
             elif method == 'PUT_EMPTY':
                 response = requests.put(url, timeout=DEFAULT_TIMEOUT)
             elif method == 'PUT':
-                response = requests.put(url, json=dict(params), timeout=DEFAULT_TIMEOUT)
+                response = requests.put(url, json=dict(params) if params else None, timeout=DEFAULT_TIMEOUT)
             elif method == 'DELETE':
                 response = requests.delete(url, timeout=DEFAULT_TIMEOUT)
             try:
@@ -109,7 +109,7 @@ class ForkedDaapd:
     def set_volume(self, level):
         """Set the volume and returns the current state, level 0-100."""
         return self._request('PUT', '/api/player/volume?volume=' + str(int(level * 100)))
-        
+
     def set_muted(self, muted):
         """Mute and returns the current state, muted True or False."""
         if muted is True:
@@ -224,6 +224,9 @@ class ForkedDaapdDevice(MediaPlayerDevice):
 
     def update_state(self, state_hash):
         """Update all the state properties with the passed in dictionary."""
+        if not state_hash:
+            state_hash = dict()
+
         self.player_state = state_hash.get('state', None)
 
         self.current_volume = float(state_hash.get('volume', 0) /100)
@@ -488,4 +491,3 @@ class AirPlayDevice(MediaPlayerDevice):
         self.schedule_update_ha_state()
         response = self.client.toggle_airplay_device(self._id, False)
         self.update_state(response)
-
