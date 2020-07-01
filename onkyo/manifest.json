@@ -3,6 +3,5 @@
   "name": "Onkyo",
   "documentation": "https://www.home-assistant.io/integrations/onkyo",
   "requirements": [ "https://github.com/johnpdowling/onkyo-eiscp/zipball/master#onkyo-eiscp==1.2.8" ],
-  "requirements": ["onkyo-eiscp==1.2.7"],
   "codeowners": []
 }
