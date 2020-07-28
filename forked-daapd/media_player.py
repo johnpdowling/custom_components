@@ -140,7 +140,7 @@ class ForkedDaapd:
     def play_music(self, media_id, wholePath=True):
         path = media_id.split('/')
         filename = path[len(path) - 1]
-        os.system("mpg123 --delay 3 --rate 44100 --stereo --stdout /config/tts/" + filename + " > /config/forked-daapd/music/HomeAssistantAnnounce")
+        os.system("mpg123 --encoding s16 --rate 44100 --stereo --stdout /config/tts/" + filename + " > /config/forked-daapd/music/HomeAssistantAnnounce")
         return {}
 
     def play_playlist(self, playlist_id_or_name):
