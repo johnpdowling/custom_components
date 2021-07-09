@@ -4,5 +4,6 @@
   "documentation": "https://www.home-assistant.io/components/owntone",
   "requirements": ["mpg123>=0.4"],
   "dependencies": [],
-  "codeowners": []
+  "codeowners": [],
+  "iot_class": "local_polling"
 }
