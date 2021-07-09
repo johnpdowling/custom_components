@@ -1,4 +1,4 @@
-"""Config flow to configure forked-daapd devices."""
+"""Config flow to configure owntone devices."""
 from contextlib import suppress
 import logging
 
@@ -41,8 +41,8 @@ TEST_CONNECTION_ERROR_DICT = {
 }
 
 
-class ForkedDaapdOptionsFlowHandler(config_entries.OptionsFlow):
-    """Handle a forked-daapd options flow."""
+class OwnToneOptionsFlowHandler(config_entries.OptionsFlow):
+    """Handle a owntone options flow."""
 
     def __init__(self, config_entry):
         """Initialize."""
@@ -97,8 +97,8 @@ def fill_in_schema_dict(some_input):
     return schema_dict
 
 
-class ForkedDaapdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a forked-daapd config flow."""
+class OwnToneFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+    """Handle a owntone config flow."""
 
     VERSION = 1
 
@@ -110,7 +110,7 @@ class ForkedDaapdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     @callback
     def async_get_options_flow(config_entry):
         """Return options flow handler."""
-        return ForkedDaapdOptionsFlowHandler(config_entry)
+        return OwnToneOptionsFlowHandler(config_entry)
 
     async def validate_input(self, user_input):
         """Validate the user input."""
@@ -127,7 +127,7 @@ class ForkedDaapdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         return validate_result
 
     async def async_step_user(self, user_input=None):
-        """Handle a forked-daapd config flow start.
+        """Handle an owntone config flow start.
 
         Manage device specific parameters.
         """
@@ -154,7 +154,7 @@ class ForkedDaapdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     async def async_step_zeroconf(self, discovery_info):
-        """Prepare configuration for a discovered forked-daapd device."""
+        """Prepare configuration for a discovered owntone device."""
         version_num = 0
         if discovery_info.get("properties") and discovery_info["properties"].get(
             "Machine Name"
@@ -164,7 +164,7 @@ class ForkedDaapdFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     discovery_info["properties"].get("mtd-version", "0").split(".")[0]
                 )
         if version_num < 27:
-            return self.async_abort(reason="not_forked_daapd")
+            return self.async_abort(reason="not_owntone")
         await self.async_set_unique_id(discovery_info["properties"]["Machine Name"])
         self._abort_if_unique_id_configured()
 
