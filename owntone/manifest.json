@@ -1,0 +1,8 @@
+{
+  "domain": "owntone",
+  "name": "OwnTone",
+  "documentation": "https://www.home-assistant.io/components/owntone",
+  "requirements": ["mpg123>=0.4"],
+  "dependencies": [],
+  "codeowners": []
+}
