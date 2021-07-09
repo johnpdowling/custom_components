@@ -1,4 +1,4 @@
-"""This library brings support for forked_daapd to Home Assistant."""
+"""This library brings support for owntone to Home Assistant."""
 import asyncio
 from collections import defaultdict
 import logging
@@ -63,16 +63,16 @@ WEBSOCKET_RECONNECT_TIME = 30  # seconds
 
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
-    """Set up forked-daapd from a config entry."""
+    """Set up owntone from a config entry."""
     host = config_entry.data[CONF_HOST]
     port = config_entry.data[CONF_PORT]
     password = config_entry.data[CONF_PASSWORD]
-    forked_daapd_api = ForkedDaapdAPI(
+    owntone_api = ForkedDaapdAPI(
         async_get_clientsession(hass), host, port, password
     )
-    forked_daapd_master = ForkedDaapdMaster(
+    owntone_master = OwnToneMaster(
         clientsession=async_get_clientsession(hass),
-        api=forked_daapd_api,
+        api=owntone_api,
         ip_address=host,
         api_port=port,
         api_password=password,
@@ -83,7 +83,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     def async_add_zones(api, outputs):
         zone_entities = []
         for output in outputs:
-            zone_entities.append(ForkedDaapdZone(api, output, config_entry.entry_id))
+            zone_entities.append(OwnToneZone(api, output, config_entry.entry_id))
         async_add_entities(zone_entities, False)
 
     remove_add_zones_listener = async_dispatcher_connect(
@@ -99,8 +99,8 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
             remove_entry_listener,
         ]
     }
-    async_add_entities([forked_daapd_master], False)
-    forked_daapd_updater = ForkedDaapdUpdater(
+    async_add_entities([owntone_master], False)
+    owntone_updater = OwnToneUpdater(
         hass, forked_daapd_api, config_entry.entry_id
     )
     await forked_daapd_updater.async_init()
@@ -116,11 +116,11 @@ async def update_listener(hass, entry):
     )
 
 
-class ForkedDaapdZone(MediaPlayerEntity):
+class OwnToneZone(MediaPlayerEntity):
     """Representation of a forked-daapd output."""
 
     def __init__(self, api, output, entry_id):
-        """Initialize the ForkedDaapd Zone."""
+        """Initialize the OwnTone Zone."""
         self._api = api
         self._output = output
         self._output_id = output["id"]
@@ -221,13 +221,13 @@ class ForkedDaapdZone(MediaPlayerEntity):
         return SUPPORTED_FEATURES_ZONE
 
 
-class ForkedDaapdMaster(MediaPlayerEntity):
-    """Representation of the main forked-daapd device."""
+class OwnToneMaster(MediaPlayerEntity):
+    """Representation of the main owntone device."""
 
     def __init__(
         self, clientsession, api, ip_address, api_port, api_password, config_entry
     ):
-        """Initialize the ForkedDaapd Master Device."""
+        """Initialize the OwnTone Master Device."""
         self._api = api
         self._player = STARTUP_DATA[
             "player"
@@ -755,8 +755,8 @@ class ForkedDaapdMaster(MediaPlayerEntity):
         _LOGGER.warning("No pipe control available for %s", pipe_name)
 
 
-class ForkedDaapdUpdater:
-    """Manage updates for the forked-daapd device."""
+class OwnToneUpdater:
+    """Manage updates for the owntone device."""
 
     def __init__(self, hass, api, entry_id):
         """Initialize."""
