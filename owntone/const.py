@@ -1,4 +1,4 @@
-"""Const for forked-daapd."""
+"""Const for owntone."""
 from homeassistant.components.media_player.const import (
     SUPPORT_CLEAR_PLAYLIST,
     SUPPORT_NEXT_TRACK,
@@ -16,7 +16,7 @@ from homeassistant.components.media_player.const import (
     SUPPORT_VOLUME_SET,
 )
 
-CALLBACK_TIMEOUT = 8  # max time between command and callback from forked-daapd server
+CALLBACK_TIMEOUT = 8  # max time between command and callback from owntone server
 CONF_LIBRESPOT_JAVA_PORT = "librespot_java_port"
 CONF_MAX_PLAYLISTS = "max_playlists"
 CONF_TTS_PAUSE_TIME = "tts_pause_time"
@@ -26,8 +26,8 @@ DEFAULT_SERVER_NAME = "My Server"
 DEFAULT_TTS_PAUSE_TIME = 1.2
 DEFAULT_TTS_VOLUME = 0.8
 DEFAULT_UNMUTE_VOLUME = 0.6
-DOMAIN = "forked_daapd"  # key for hass.data
-FD_NAME = "forked-daapd"
+DOMAIN = "owntone"  # key for hass.data
+FD_NAME = "owntone"
 HASS_DATA_REMOVE_LISTENERS_KEY = "REMOVE_LISTENERS"
 HASS_DATA_UPDATER_KEY = "UPDATER"
 KNOWN_PIPES = {"librespot-java"}
@@ -40,13 +40,13 @@ PIPE_FUNCTION_MAP = {
         "async_media_next_track": "player_next",
     }
 }
-SIGNAL_ADD_ZONES = "forked-daapd_add_zones {}"
-SIGNAL_CONFIG_OPTIONS_UPDATE = "forked-daapd_config_options_update {}"
-SIGNAL_UPDATE_DATABASE = "forked-daapd_update_database {}"
-SIGNAL_UPDATE_MASTER = "forked-daapd_update_master {}"
-SIGNAL_UPDATE_OUTPUTS = "forked-daapd_update_outputs {}"
-SIGNAL_UPDATE_PLAYER = "forked-daapd_update_player {}"
-SIGNAL_UPDATE_QUEUE = "forked-daapd_update_queue {}"
+SIGNAL_ADD_ZONES = "owntone_add_zones {}"
+SIGNAL_CONFIG_OPTIONS_UPDATE = "owntone_config_options_update {}"
+SIGNAL_UPDATE_DATABASE = "owntone_update_database {}"
+SIGNAL_UPDATE_MASTER = "owntone_update_master {}"
+SIGNAL_UPDATE_OUTPUTS = "owntone_update_outputs {}"
+SIGNAL_UPDATE_PLAYER = "owntone_update_player {}"
+SIGNAL_UPDATE_QUEUE = "owntone_update_queue {}"
 SOURCE_NAME_CLEAR = "Clear queue"
 SOURCE_NAME_DEFAULT = "Default (no pipe)"
 STARTUP_DATA = {
