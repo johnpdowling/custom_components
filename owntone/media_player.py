@@ -101,12 +101,12 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     }
     async_add_entities([owntone_master], False)
     owntone_updater = OwnToneUpdater(
-        hass, forked_daapd_api, config_entry.entry_id
+        hass, owntone_api, config_entry.entry_id
     )
-    await forked_daapd_updater.async_init()
+    await owntone_updater.async_init()
     hass.data[DOMAIN][config_entry.entry_id][
         HASS_DATA_UPDATER_KEY
-    ] = forked_daapd_updater
+    ] = owntone_updater
 
 
 async def update_listener(hass, entry):
@@ -117,7 +117,7 @@ async def update_listener(hass, entry):
 
 
 class OwnToneZone(MediaPlayerEntity):
-    """Representation of a forked-daapd output."""
+    """Representation of an OwnTone output."""
 
     def __init__(self, api, output, entry_id):
         """Initialize the OwnTone Zone."""
@@ -313,7 +313,7 @@ class OwnToneMaster(MediaPlayerEntity):
 
     @callback
     def update_options(self, options):
-        """Update forked-daapd server options."""
+        """Update owntone server options."""
         if CONF_LIBRESPOT_JAVA_PORT in options:
             self._pipe_control_api["librespot-java"] = LibrespotJavaAPI(
                 self._clientsession, self._ip_address, options[CONF_LIBRESPOT_JAVA_PORT]
