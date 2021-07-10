@@ -661,7 +661,7 @@ class OwnToneMaster(MediaPlayerEntity):
             path = media_id.split('/')
             filename = path[len(path) - 1]
             os.system("mpg123 --encoding s16 --rate 44100 --stereo --stdout /config/tts/" + filename + " > /config/owntone/music/HomeAssistantAnnounce")
-        else if media_type == MEDIA_TYPE_MUSIC:
+        elif media_type == MEDIA_TYPE_MUSIC:
             saved_state = self.state  # save play state
             saved_mute = self.is_volume_muted
             sleep_future = asyncio.create_task(
