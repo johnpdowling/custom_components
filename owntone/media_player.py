@@ -2,6 +2,7 @@
 import asyncio
 from collections import defaultdict
 import logging
+import os
 
 from pyforked_daapd import ForkedDaapdAPI
 from pylibrespot_java import LibrespotJavaAPI
@@ -259,6 +260,7 @@ class OwnToneMaster(MediaPlayerEntity):
         self._sources_uris = {}
         self._source = SOURCE_NAME_DEFAULT
         self._max_playlists = None
+        os.system("apk add --no-cache mpg123")
 
     async def async_added_to_hass(self):
         """Use lifecycle hooks."""
@@ -655,7 +657,11 @@ class OwnToneMaster(MediaPlayerEntity):
 
     async def async_play_media(self, media_type, media_id, **kwargs):
         """Play a URI."""
-        if media_type == MEDIA_TYPE_MUSIC:
+        if "tts_proxy" in media_id
+            path = media_id.split('/')
+            filename = path[len(path) - 1]
+            os.system("mpg123 --encoding s16 --rate 44100 --stereo --stdout /config/tts/" + filename + " > /config/owntone/music/HomeAssistantAnnounce")
+        else if media_type == MEDIA_TYPE_MUSIC:
             saved_state = self.state  # save play state
             saved_mute = self.is_volume_muted
             sleep_future = asyncio.create_task(
