@@ -657,7 +657,7 @@ class OwnToneMaster(MediaPlayerEntity):
 
     async def async_play_media(self, media_type, media_id, **kwargs):
         """Play a URI."""
-        if "tts_proxy" in media_id
+        if "tts_proxy" in media_id:
             path = media_id.split('/')
             filename = path[len(path) - 1]
             os.system("mpg123 --encoding s16 --rate 44100 --stereo --stdout /config/tts/" + filename + " > /config/owntone/music/HomeAssistantAnnounce")
