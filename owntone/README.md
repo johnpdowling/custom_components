@@ -12,4 +12,4 @@ In addition to controlling owntone, your available AirPlay endpoints will be add
 You should see an OwnTone integration pop up with your OwnTone server in Integrations, possibly next to forked-daapd and Apple integrations as well. I ignored the other integrations for my server and configured for the OwnTone one.
 
 ## Thanks
-A big thanks to [/u/sretalla](https://github.com/sretalla) for settings bugfixes and for patient users as I get to bug fixes
+Patient users as I get to bug fixes
